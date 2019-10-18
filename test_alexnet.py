@@ -47,7 +47,7 @@ for bs in batch_size:
         net = AlexNet()
         net.cuda()
         weights_file = 'pytorch_networks/alexnet_weights_%d_rep_%d.pkl'%(bs, r+1)
-        print weights_file
+        print(weights_file)
         with open(weights_file, 'rb') as f:
             d = pickle.load(f)
             weights = d['weights']
@@ -67,4 +67,5 @@ for bs in batch_size:
             total += labels.size(0)
             correct += (predicted.cpu() == labels).sum()
 
-        print 'Accuracy of the network on the 10000 test images: %f %%' % (100. * float(correct) / float(total))
+        print('Accuracy of the network on the 10000 test images: %f %%' % (100. * float(correct) / float(total)))
+
