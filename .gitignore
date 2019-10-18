@@ -1,0 +1,4 @@
+pytorch_networks/*.pkl
+pytorch_networks/data
+data
+saved_networks
