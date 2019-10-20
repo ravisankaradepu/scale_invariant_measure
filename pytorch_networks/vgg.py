@@ -29,7 +29,16 @@ class VGG(nn.Module):
         x = x.view(x.size(0), -1)
         x = self.classifier(x)
         return x
-
+    def get_weight_tensors(self):
+        W = []
+        for i in self.named_parameters():
+            if 'weight' in i[0]:
+                W.append(i[1])
+        for i in self.named_parameters():
+            if 'bias' in i[0]:
+                W.append(i[1])
+        return W
+                        
     def _initialize_weights(self):
         for m in self.modules():
             if isinstance(m, nn.Conv2d):

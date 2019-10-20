@@ -28,7 +28,7 @@ for bs in batch_size:
         net = vgg.vgg16()
         criterion = nn.CrossEntropyLoss()
 
-        weights_file = 'pytorch_networks/vgg_weights_%d_rep_%d.pkl'%(bs, r+1)
+        weights_file = 'pytorch_networks/vgg_weights_256_rep_1.pkl'
         with open(weights_file, 'rb') as f:
             d = pickle.load(f,encoding='latin1')
             weights = d['weights']
@@ -52,7 +52,7 @@ for bs in batch_size:
         W_orig = QuotientManifoldTangentVector(layer_sizes)
         W_orig.set_vector(weights+biases)
 
-        n_samples = 10000
+        n_samples = 1000
 
         t1 = time.time()
         v_res,errs = riemannian_power_method(v_init, 1000, net, criterion, W_orig, train_x[:n_samples], train_y[:n_samples], tol=1e-6)
