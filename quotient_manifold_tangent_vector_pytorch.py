@@ -80,7 +80,7 @@ def riemannian_hess_quadratic_form(tgt_vec, net, criterion, weights, data, label
     HV.set_vector(hv_prod)
     return V.dot(HV, weights)
 
-def riemannian_power_method(v_init, max_iter, net, criterion, weights, data, labels, tol=1e-8):
+def riemannian_power_method(v_init, max_iter, net, criterion, weights, data, labels, tol=1e-4):
     V_T = QuotientManifoldTangentVector(weights.layer_sizes)
     V_T.set_vector(v_init)
     V_Tp1 = QuotientManifoldTangentVector(weights.layer_sizes)
@@ -103,4 +103,5 @@ def riemannian_power_method(v_init, max_iter, net, criterion, weights, data, lab
         errs[i] = err
         if err < tol:
             break
+        print(i,err,tol, err < tol)
     return V_T, errs

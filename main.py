@@ -15,7 +15,6 @@ from quotient_manifold_tangent_vector_pytorch import QuotientManifoldTangentVect
 import argparse
 from load_cifar_data import load_cifar_as_array
 
-
 parser = argparse.ArgumentParser()
 parser.add_argument('-n_models',
                     '--num_models',
@@ -57,11 +56,9 @@ for bs in batch_size:
 
         W_orig = QuotientManifoldTangentVector(layer_sizes)
         W_orig.set_vector(weights+biases)
-
         n_samples = 100
-
         t1 = time.time()
-        v_res,errs = riemannian_power_method(v_init, 1000, net, criterion, W_orig, train_x[:n_samples], train_y[:n_samples], tol=1e-6)
+        v_res,errs = riemannian_power_method(v_init, 1000, net, criterion, W_orig, train_x[:n_samples], train_y[:n_samples], tol=1e-4)
         sp_norm = riemannian_hess_quadratic_form(v_res, net, criterion, W_orig, train_x[:n_samples], train_y[:n_samples])
         secs1 = time.time() - t1
         print('Measuring sharpness took %.4f seconds' % (secs1))
@@ -78,8 +75,6 @@ for bs in batch_size:
         sharpness.append(sp_norm/(2+2*loss.data.cpu().numpy()))
 
 import matplotlib.pyplot as plt
-
-
 from matplotlib import rcParams
 rcParams.update({'figure.autolayout': True})
 
